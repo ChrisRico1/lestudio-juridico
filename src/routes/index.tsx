@@ -75,7 +75,7 @@ function Index() {
             </div>
             <div className="flex items-center gap-2 rounded border bg-surface px-4 py-2">
               <Clock className="h-4 w-4 text-primary" />
-              <span>{estudio.horarios[0].dia}: {estudio.horarios[0].horas}</span>
+              <span>{estudio.horarios[0]?.dia}: {estudio.horarios[0]?.horas}</span>
             </div>
           </div>
         </div>
