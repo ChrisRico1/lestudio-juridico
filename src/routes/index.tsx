@@ -4,6 +4,10 @@ import {
   MessageCircle, Quote, Search, Gavel, ExternalLink,
 } from "lucide-react";
 import { estudio, waLink } from "@/lib/estudio";
+import heroJusticia from "@/assets/hero-justicia.jpg";
+import biblioteca from "@/assets/biblioteca.jpg";
+import despacho from "@/assets/despacho.jpg";
+import tribunales from "@/assets/tribunales.jpg";
 
 const iconos = { scale: Scale, users: Users, briefcase: Briefcase, home: Home, shield: Shield, file: FileText };
 
@@ -29,6 +33,12 @@ function WaButton({ texto = "Consultar por WhatsApp" }: { texto?: string }) {
   );
 }
 
+const pasos = [
+  { i: MessageCircle, t: "1. Primera consulta", d: "Nos escribís por WhatsApp y coordinamos una reunión para conocer tu situación." },
+  { i: Search, t: "2. Análisis del caso", d: "Revisamos la documentación y te explicamos tus opciones en lenguaje simple." },
+  { i: Gavel, t: "3. Estrategia y seguimiento", d: "Definimos juntos el camino a seguir y te mantenemos al tanto de cada avance." },
+];
+
 function Index() {
   const anio = new Date().getFullYear();
   return (
@@ -52,31 +62,43 @@ function Index() {
       </header>
 
       <section id="inicio" className="bg-hero pt-32 pb-24">
-        <div className="mx-auto max-w-6xl px-5">
-          <p className="eyebrow">{estudio.rubro} · {estudio.ciudad}</p>
-          <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight md:text-6xl">
-            Defendemos tus derechos con <span className="text-primary">compromiso y claridad</span>.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-            Contanos tu caso y te orientamos sobre los pasos a seguir. Atención personalizada a cargo de {estudio.titular}.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <WaButton />
-            <a href={`tel:${estudio.telefonoLink}`} className="btn-outline">
-              <Phone className="h-5 w-5" /> Llamar
-            </a>
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-[1.05fr_0.95fr]">
+          <div>
+            <p className="eyebrow">{estudio.rubro} · {estudio.ciudad}</p>
+            <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight md:text-6xl">
+              Defendemos tus derechos con <span className="text-primary">compromiso y claridad</span>.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
+              Contanos tu caso y te orientamos sobre los pasos a seguir. Atención personalizada a cargo de {estudio.titular}.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <WaButton />
+              <a href={`tel:${estudio.telefonoLink}`} className="btn-outline">
+                <Phone className="h-5 w-5" /> Llamar
+              </a>
+            </div>
+            <div className="mt-10 flex flex-wrap gap-4 text-sm">
+              <div className="flex items-center gap-2 rounded border bg-surface px-4 py-2">
+                <Star className="h-4 w-4 fill-primary text-primary" />
+                {estudio.valoracion && estudio.cantidadResenas
+                  ? <span><strong>{estudio.valoracion}</strong> · {estudio.cantidadResenas} opiniones en Google</span>
+                  : <span>[Valoración] · [Cantidad] opiniones en Google</span>}
+              </div>
+              <div className="flex items-center gap-2 rounded border bg-surface px-4 py-2">
+                <Clock className="h-4 w-4 text-primary" />
+                <span>{estudio.horarios[0]?.dia}: {estudio.horarios[0]?.horas}</span>
+              </div>
+            </div>
           </div>
-          <div className="mt-10 flex flex-wrap gap-4 text-sm">
-            <div className="flex items-center gap-2 rounded border bg-surface px-4 py-2">
-              <Star className="h-4 w-4 fill-primary text-primary" />
-              {estudio.valoracion && estudio.cantidadResenas
-                ? <span><strong>{estudio.valoracion}</strong> · {estudio.cantidadResenas} opiniones en Google</span>
-                : <span>[Valoración] · [Cantidad] opiniones en Google</span>}
-            </div>
-            <div className="flex items-center gap-2 rounded border bg-surface px-4 py-2">
-              <Clock className="h-4 w-4 text-primary" />
-              <span>{estudio.horarios[0]?.dia}: {estudio.horarios[0]?.horas}</span>
-            </div>
+          <div className="mx-auto w-full max-w-sm lg:max-w-none">
+            <img
+              src={heroJusticia}
+              alt="Balanza de justicia sobre un escritorio de madera"
+              width={1024}
+              height={1280}
+              decoding="async"
+              className="w-full rounded-lg border object-cover shadow-elegant"
+            />
           </div>
         </div>
       </section>
@@ -100,22 +122,60 @@ function Index() {
         </div>
       </section>
 
-      <section id="como-trabajamos" className="border-y bg-surface py-24">
-        <div className="mx-auto max-w-6xl px-5">
-          <p className="eyebrow">Cómo trabajamos</p>
-          <h2 className="mt-3 text-3xl font-semibold md:text-4xl">Un proceso claro, de principio a fin</h2>
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {[
-              { i: MessageCircle, t: "1. Primera consulta", d: "Nos escribís por WhatsApp y coordinamos una reunión para conocer tu situación." },
-              { i: Search, t: "2. Análisis del caso", d: "Revisamos la documentación y te explicamos tus opciones en lenguaje simple." },
-              { i: Gavel, t: "3. Estrategia y seguimiento", d: "Definimos juntos el camino a seguir y te mantenemos al tanto de cada avance." },
-            ].map(({ i: I, t, d }) => (
-              <div key={t}>
-                <I className="h-7 w-7 text-primary" strokeWidth={1.5} />
-                <h3 className="mt-4 text-lg font-semibold">{t}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{d}</p>
-              </div>
-            ))}
+      <section className="relative isolate overflow-hidden border-y">
+        <img
+          src={tribunales}
+          alt="Columnas de un edificio de tribunales al atardecer"
+          width={1600}
+          height={640}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover opacity-45"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/35" />
+        <div className="relative mx-auto max-w-6xl px-5 py-20">
+          <p className="eyebrow">Atención profesional</p>
+          <h2 className="mt-3 max-w-2xl text-3xl font-semibold md:text-4xl">
+            Consultá sin compromiso y con total confidencialidad
+          </h2>
+          <p className="mt-4 max-w-xl text-muted-foreground">
+            Escribinos por WhatsApp y te explicamos, en palabras simples, qué opciones tenés.
+          </p>
+          <div className="mt-8">
+            <WaButton texto="Consultar ahora" />
+          </div>
+        </div>
+      </section>
+
+      <section id="como-trabajamos" className="bg-surface py-24">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
+          <div className="order-2 lg:order-1">
+            <img
+              src={biblioteca}
+              alt="Biblioteca jurídica con estanterías de libros antiguos"
+              width={1200}
+              height={800}
+              loading="lazy"
+              decoding="async"
+              className="w-full rounded-lg border object-cover shadow-elegant"
+            />
+          </div>
+          <div className="order-1 lg:order-2">
+            <p className="eyebrow">Cómo trabajamos</p>
+            <h2 className="mt-3 text-3xl font-semibold md:text-4xl">Un proceso claro, de principio a fin</h2>
+            <ol className="mt-10 space-y-8">
+              {pasos.map(({ i: I, t, d }) => (
+                <li key={t} className="flex gap-5">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded border border-primary text-primary">
+                    <I className="h-5 w-5" strokeWidth={1.5} />
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-semibold">{t}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">{d}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>
@@ -165,14 +225,25 @@ function Index() {
               <a href={`tel:${estudio.telefonoLink}`} className="btn-outline"><Phone className="h-5 w-5" /> Llamar</a>
             </div>
           </div>
-          <div className="min-h-80 overflow-hidden rounded-lg border bg-card">
-            {estudio.mapaEmbedUrl ? (
-              <iframe title={`Mapa de ${estudio.nombre}`} src={estudio.mapaEmbedUrl} className="h-full min-h-80 w-full" loading="lazy" />
-            ) : (
-              <div className="grid h-full min-h-80 place-items-center text-sm text-muted-foreground">
-                <span className="flex items-center gap-2"><MapPin className="h-5 w-5 text-primary" /> [Mapa de Google]</span>
-              </div>
-            )}
+          <div className="grid gap-6">
+            <img
+              src={despacho}
+              alt="Escritorio con carpeta, documentos y martillo de madera"
+              width={1200}
+              height={800}
+              loading="lazy"
+              decoding="async"
+              className="h-52 w-full rounded-lg border object-cover"
+            />
+            <div className="min-h-80 overflow-hidden rounded-lg border bg-card">
+              {estudio.mapaEmbedUrl ? (
+                <iframe title={`Mapa de ${estudio.nombre}`} src={estudio.mapaEmbedUrl} className="h-full min-h-80 w-full" loading="lazy" />
+              ) : (
+                <div className="grid h-full min-h-80 place-items-center text-sm text-muted-foreground">
+                  <span className="flex items-center gap-2"><MapPin className="h-5 w-5 text-primary" /> [Mapa de Google]</span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
